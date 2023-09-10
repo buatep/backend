@@ -9,7 +9,7 @@ const corsOptions = {
     origin: "http://localhost:8080"
 }
 
-db.sequelize.sync({ force: true })
+db.sequelizeConfig.sync()
   .then(() => {
     console.log("Synced db.");
   })
@@ -24,8 +24,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get("/", (req,res) => {
-    res.json({ message: "Multi-App Backend is up" })
+    res.json({ message: "Multi-App Backend On" })
 })
+
+require("./app/routes/tutorial.routes")(app)
+require("./app/routes/struktur.routes")(app)
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
